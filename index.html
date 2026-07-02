@@ -39,7 +39,6 @@
 
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
 
-  /* focus visibility */
   a:focus-visible, button:focus-visible{
     outline:2px solid var(--accent);
     outline-offset:3px;
@@ -98,7 +97,6 @@
   .btn:hover{background:var(--accent); border-color:var(--accent); color:#fff;}
   .btn.primary:hover{background:var(--accent); border-color:var(--accent);}
 
-  /* pipeline spine */
   .pipeline{position:relative;}
   .pipeline::before{
     content:"";
@@ -229,12 +227,6 @@
     color:var(--ink-soft);
   }
 
-  .placeholder{
-    color:var(--accent);
-    background:var(--accent-soft);
-    padding:0 4px;
-  }
-
   @media (prefers-reduced-motion: reduce){
     .spine-progress{animation:none; transform:scaleY(1);}
     html{scroll-behavior:auto;}
@@ -251,12 +243,10 @@
 <body>
 
 <header class="hero wrap">
-  <p class="eyebrow">Disponible pour missions / postes</p>
-  <h1>bsaliou<span class="who">LLM Systems Engineer — RAG, agents, fine-tuning &amp; évaluation</span></h1>
+  <p class="eyebrow">Disponible pour opportunités en CDI / Contrats</p>
+  <h1>Baptiste Saliou<span class="who">LLM Systems Engineer — RAG, agents, fine-tuning &amp; évaluation</span></h1>
   <p class="lede">
-    Je conçois des systèmes autour des LLM de bout en bout : récupération d'information,
-    orchestration d'agents, fine-tuning de petits modèles, et surtout — mesure de ce qui marche
-    vraiment. <span class="placeholder">[Ajoute ici 1-2 phrases sur ton parcours / domaine d'application, ex. chimie, support client...]</span>
+    Je conçois des architectures LLM de bout en bout : de l'ingestion de données complexes à l'orchestration d'agents autonomes, avec une obsession pour la mesure des performances et l'optimisation des coûts industriels. Mon objectif : transformer les prototypes IA en solutions de production fiables et scalables.
   </p>
   <div class="hero-links">
     <a class="btn primary" href="https://github.com/bsaliou" target="_blank" rel="noopener">Voir le code →</a>
@@ -271,15 +261,16 @@
     <div class="stage-node"></div>
     <p class="stage-tag">01 · retrieve</p>
     <h2>hybrid-rag-pipeline</h2>
-    <p class="section-intro">Pipeline RAG local, gratuit et complet : chunking sémantique, retrieval hybride, reranking, évaluation chiffrée.</p>
+    <p class="section-intro">Pipeline RAG local et souverain : chunking sémantique, retrieval hybride, reranking et framework d'évaluation chiffrée.</p>
     <div class="card">
-      <p>Combine recherche dense et BM25 avec fusion de rang (Reciprocal Rank Fusion), puis reranking par cross-encoder. Le pipeline est évalué quantitativement sur la fidélité et la précision du contexte — pas juste "ça a l'air de marcher".</p>
+      <p>Optimisation du recall via la fusion de rang (RRF) combinant recherche dense (embeddings) et creuse (BM25), suivie d'un filtrage par cross-encoder. Le pipeline intègre une validation quantitative rigoureuse (fidélité de la réponse et pertinence du contexte) pour éliminer les hallucinations en amont.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">Hybrid Search</span>
         <span class="tag">BM25</span>
         <span class="tag">Cross-encoder</span>
-        <span class="tag">RAG Eval</span>
+        <span class="tag">RAG Triad Eval</span>
+        <span class="tag">Qdrant</span>
       </div>
       <div class="card-foot">
         <a href="https://github.com/bsaliou/hybrid-rag-pipeline" target="_blank" rel="noopener">github.com/bsaliou/hybrid-rag-pipeline</a>
@@ -291,14 +282,15 @@
     <div class="stage-node"></div>
     <p class="stage-tag">02 · generate</p>
     <h2>qlora-fine-tuning-json-extraction</h2>
-    <p class="section-intro">Fine-tuning QLoRA de Qwen2.5-3B pour extraire du JSON structuré depuis des tickets support.</p>
+    <p class="section-intro">Fine-tuning QLoRA de Qwen2.5-3B pour l'extraction de schémas JSON structurés à partir de données textuelles brutes.</p>
     <div class="card">
-      <p>Comparatif chiffré avant/après fine-tuning, rapport de coût de calcul, et déploiement concret via Ollama et vLLM. L'objectif : un petit modèle spécialisé qui remplace un gros modèle générique, moins cher et plus fiable sur une tâche précise.</p>
+      <p>Spécialisation d'un LLM compact pour surpasser les modèles commerciaux généralistes sur des tâches d'extraction strictes. Inclut un benchmark complet des coûts de compute, des matrices de validation du format, ainsi qu'une configuration de service optimisée pour la production via vLLM et conteneurisation Docker.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">QLoRA</span>
-        <span class="tag">Qwen2.5-3B</span>
+        <span class="tag">Qwen2.5</span>
         <span class="tag">vLLM</span>
+        <span class="tag">Docker</span>
         <span class="tag">Ollama</span>
       </div>
       <div class="card-foot">
@@ -311,14 +303,15 @@
     <div class="stage-node"></div>
     <p class="stage-tag">03 · orchestrate</p>
     <h2>agent-sql-tool-use</h2>
-    <p class="section-intro">Agent LLM multi-outils (SQL, calculatrice, recherche web), boucle d'orchestration comparée à LangGraph.</p>
+    <p class="section-intro">Agent LLM multi-outils (SQL, APIs, moteurs de calcul) avec boucles d'orchestration personnalisées et comparatif LangGraph.</p>
     <div class="card">
-      <p>Implémentation "from scratch" d'une boucle d'agent, mise en regard directe avec une implémentation LangGraph — avec mémoire court/long terme, retry et fallback en cas d'échec d'un outil. Une vraie démonstration de compréhension du fonctionnement interne des frameworks, pas juste de leur usage.</p>
+      <p>Développement "from scratch" d'un moteur de boucles ReAct pour assimiler les concepts fondamentaux (gestion d'état, mémoire court/long terme, fallbacks), mis en miroir avec une architecture de graphe cyclique sous LangGraph. Conçu pour garantir la résilience de l'agent face aux échecs d'appels d'outils.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">LangGraph</span>
         <span class="tag">Tool Use</span>
-        <span class="tag">SQL Agent</span>
+        <span class="tag">SQLAgent</span>
+        <span class="tag">Agentic Patterns</span>
       </div>
       <div class="card-foot">
         <a href="https://github.com/bsaliou/agent-sql-tool-use" target="_blank" rel="noopener">github.com/bsaliou/agent-sql-tool-use</a>
@@ -330,14 +323,15 @@
     <div class="stage-node"></div>
     <p class="stage-tag">04 · evaluate</p>
     <h2>llm-eval-observability-powerbi</h2>
-    <p class="section-intro">Framework d'évaluation LLM (LLM-as-judge + métriques automatiques) avec traçage Langfuse et dashboard Power BI.</p>
+    <p class="section-intro">Framework d'observabilité LLM (LLM-as-a-judge + guardrails) connecté à un tracking Langfuse et un dashboard analytique Power BI.</p>
     <div class="card">
-      <p>Compare prompts et modèles sur des critères objectifs, trace chaque appel via Langfuse, et remonte coût, latence et taux d'erreur dans un dashboard Power BI construit à partir des logs de requêtes réels. La partie la plus rare du métier : savoir mesurer, pas seulement construire.</p>
+      <p>Mise en place d'une stack de monitoring pour auditer la qualité des réponses en production. Capture et centralisation des logs de requêtes pour analyser en temps réel la latence token/s, le coût financier des prompts et le taux d'erreur, traduits en indicateurs business clés sur Power BI.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">LLM-as-judge</span>
         <span class="tag">Langfuse</span>
         <span class="tag">Power BI</span>
+        <span class="tag">Data Analytics</span>
       </div>
       <div class="card-foot">
         <a href="https://github.com/bsaliou/llm-eval-observability-powerbi" target="_blank" rel="noopener">github.com/bsaliou/llm-eval-observability-powerbi</a>
@@ -349,13 +343,14 @@
     <div class="stage-node"></div>
     <p class="stage-tag">05 · apply</p>
     <h2>ChemPrice</h2>
-    <p class="section-intro">Le projet le plus utilisé de mon profil — 17 stars, 5 forks : agrégation de prix fournisseurs pour la recherche en chimie.</p>
+    <p class="section-intro">Outil open source d'agrégation et d'uniformisation de données de tarification pour la recherche en chimie.</p>
     <div class="card">
-      <p>Simplifie la collecte de données de prix depuis plus de 100 fournisseurs en intégrant ChemSpace, Mcule et Molport. Garantit un format uniforme des données de prix pour comparer facilement les fournisseurs. La preuve qu'un outil bien pensé, même en dehors du cœur "LLM", trouve son public.</p>
+      <p>Solution répondant à un besoin métier concret en automatisant la collecte et la standardisation de catalogues de prix issus de plus de 100 fournisseurs (ChemSpace, Mcule, Molport). Projet activement suivi par la communauté avec une gestion rigoureuse d'APIs et de pipelines de parsing.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">Data Aggregation</span>
         <span class="tag">API Integration</span>
+        <span class="tag">Data Engineering</span>
       </div>
       <div class="card-foot">
         <a href="https://github.com/bsaliou/ChemPrice" target="_blank" rel="noopener">github.com/bsaliou/ChemPrice</a>
@@ -367,18 +362,18 @@
   <section id="skills">
     <div class="stage-node"></div>
     <p class="stage-tag">stack</p>
-    <h2>Compétences</h2>
+    <h2>Compétences Épinglées</h2>
     <div class="skills-grid">
       <span class="skill">Python</span>
-      <span class="skill">RAG</span>
+      <span class="skill">Advanced RAG</span>
       <span class="skill">LangGraph</span>
-      <span class="skill">QLoRA / fine-tuning</span>
-      <span class="skill">vLLM · Ollama</span>
-      <span class="skill">Langfuse</span>
+      <span class="skill">QLoRA / Fine-Tuning</span>
+      <span class="skill">vLLM / Ollama</span>
+      <span class="skill">Docker</span>
+      <span class="skill">Langfuse (Observabilité)</span>
       <span class="skill">Power BI</span>
-      <span class="skill">SQL</span>
-      <span class="skill">Évaluation LLM</span>
-      <span class="skill">Agents / Tool use</span>
+      <span class="skill">SQL &amp; Vector DBs</span>
+      <span class="skill">LLM Evaluation / Guardrails</span>
     </div>
   </section>
 
@@ -388,12 +383,12 @@
     <h2>Contact</h2>
     <div class="contact-card">
       <p class="lede" style="font-size:15px; margin-bottom:0;">
-        Ouvert aux échanges sur des projets LLM, missions freelance ou opportunités.
+        Disponible pour échanger sur des architectures de production Generative AI ou des opportunités d'ingénierie.
       </p>
       <div class="contact-links">
         <div class="contact-row">
           <span class="label">Email</span>
-          <a href="mailto:ton.email@exemple.com" class="placeholder">ton.email@exemple.com</a>
+          <a href="mailto:baptiste1saliou@gmail.com">baptiste1saliou@gmail.com</a>
         </div>
         <div class="contact-row">
           <span class="label">GitHub</span>
@@ -401,14 +396,14 @@
         </div>
         <div class="contact-row">
           <span class="label">LinkedIn</span>
-          <a href="#" class="placeholder">linkedin.com/in/ton-profil</a>
+          <a href="https://linkedin.com/in/baptistesaliou/" target="_blank" rel="noopener">linkedin.com/in/baptistesaliou/</a>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    bsaliou — 2026
+    Baptiste Saliou — 2026
   </footer>
 </div>
 
