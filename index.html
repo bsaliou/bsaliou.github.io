@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bsaliou — LLM Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EDF1F5;
+    --panel: #FFFFFF;
+    --ink: #17263D;
+    --ink-soft: #52667E;
+    --line: #C7D2DE;
+    --line-soft: #DCE4EC;
+    --accent: #B8862E;
+    --accent-soft: #F3E7CE;
+    --mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+    --sans: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    --maxw: 880px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--ink);}
+  ::selection{background:var(--accent-soft);}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  header.hero{
+    padding:96px 0 72px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:0 0 18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  h1{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:clamp(32px, 5vw, 52px);
+    line-height:1.1;
+    margin:0 0 20px;
+    letter-spacing:-.01em;
+  }
+  h1 .who{color:var(--ink-soft); font-weight:400; display:block; font-size:.42em; margin-top:10px;}
+  .lede{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 32px;
+  }
+  .hero-links{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    text-decoration:none;
+    padding:11px 18px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .btn.primary{background:var(--ink); color:var(--bg);}
+  .btn:hover{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.primary:hover{background:var(--accent); border-color:var(--accent);}
+
+  /* pipeline spine */
+  .pipeline{position:relative;}
+  .pipeline::before{
+    content:"";
+    position:absolute;
+    left:10px; top:0; bottom:0;
+    width:1px;
+    background:var(--line);
+  }
+  .spine-progress{
+    position:absolute;
+    left:10px; top:0;
+    width:1px;
+    background:var(--accent);
+    height:100%;
+    transform-origin:top;
+    transform:scaleY(0);
+    animation:flow 1.4s ease-out forwards;
+    animation-delay:.2s;
+  }
+  @keyframes flow{ to { transform:scaleY(1); } }
+
+  section{
+    position:relative;
+    padding:48px 0 48px 44px;
+  }
+  .stage-node{
+    position:absolute;
+    left:0px; top:52px;
+    width:21px; height:21px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stage-node::after{
+    content:"";
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+  }
+  .stage-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.09em;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin:0 0 8px;
+    font-weight:600;
+  }
+  h2{
+    font-family:var(--mono);
+    font-size:22px;
+    margin:0 0 6px;
+    font-weight:600;
+  }
+  .section-intro{
+    color:var(--ink-soft);
+    max-width:64ch;
+    margin:0 0 28px;
+  }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:24px 26px;
+    margin-bottom:16px;
+  }
+  .card h3{
+    font-family:var(--mono);
+    font-size:16px;
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .card h3 a{text-decoration:none;}
+  .card h3 a:hover{color:var(--accent);}
+  .card p{
+    color:var(--ink-soft);
+    margin:0 0 14px;
+    font-size:15px;
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;}
+  .tag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    padding:3px 9px;
+    border-radius:2px;
+  }
+  .card-foot{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+  .card-foot a{text-decoration:none; color:var(--ink); border-bottom:1px solid var(--ink);}
+  .card-foot a:hover{color:var(--accent); border-color:var(--accent);}
+  .stars{color:var(--ink-soft);}
+
+  .skills-grid{
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .skill{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:8px 14px;
+    background:var(--panel);
+    border:1px solid var(--line);
+  }
+
+  .contact-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:32px;
+  }
+  .contact-links{display:flex; flex-direction:column; gap:14px; margin-top:18px;}
+  .contact-row{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--mono);
+    font-size:14px;
+  }
+  .contact-row span.label{color:var(--ink-soft); min-width:88px;}
+  .contact-row a{text-decoration:none; border-bottom:1px solid var(--line);}
+  .contact-row a:hover{color:var(--accent); border-color:var(--accent);}
+
+  footer{
+    padding:40px 0 60px 44px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  .placeholder{
+    color:var(--accent);
+    background:var(--accent-soft);
+    padding:0 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .spine-progress{animation:none; transform:scaleY(1);}
+    html{scroll-behavior:auto;}
+  }
+
+  @media (max-width:640px){
+    header.hero{padding:64px 0 48px;}
+    section{padding:36px 0 36px 32px;}
+    .stage-node{width:17px;height:17px; top:46px;}
+    .pipeline::before, .spine-progress{left:8px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <p class="eyebrow">Disponible pour missions / postes</p>
+  <h1>bsaliou<span class="who">LLM Systems Engineer — RAG, agents, fine-tuning &amp; évaluation</span></h1>
+  <p class="lede">
+    Je conçois des systèmes autour des LLM de bout en bout : récupération d'information,
+    orchestration d'agents, fine-tuning de petits modèles, et surtout — mesure de ce qui marche
+    vraiment. <span class="placeholder">[Ajoute ici 1-2 phrases sur ton parcours / domaine d'application, ex. chimie, support client...]</span>
+  </p>
+  <div class="hero-links">
+    <a class="btn primary" href="https://github.com/bsaliou" target="_blank" rel="noopener">Voir le code →</a>
+    <a class="btn" href="#contact">Me contacter</a>
+  </div>
+</header>
+
+<div class="pipeline">
+  <div class="spine-progress"></div>
+
+  <section id="projets">
+    <div class="stage-node"></div>
+    <p class="stage-tag">01 · retrieve</p>
+    <h2>hybrid-rag-pipeline</h2>
+    <p class="section-intro">Pipeline RAG local, gratuit et complet : chunking sémantique, retrieval hybride, reranking, évaluation chiffrée.</p>
+    <div class="card">
+      <p>Combine recherche dense et BM25 avec fusion de rang (Reciprocal Rank Fusion), puis reranking par cross-encoder. Le pipeline est évalué quantitativement sur la fidélité et la précision du contexte — pas juste "ça a l'air de marcher".</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Hybrid Search</span>
+        <span class="tag">BM25</span>
+        <span class="tag">Cross-encoder</span>
+        <span class="tag">RAG Eval</span>
+      </div>
+      <div class="card-foot">
+        <a href="https://github.com/bsaliou/hybrid-rag-pipeline" target="_blank" rel="noopener">github.com/bsaliou/hybrid-rag-pipeline</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="stage-node"></div>
+    <p class="stage-tag">02 · generate</p>
+    <h2>qlora-fine-tuning-json-extraction</h2>
+    <p class="section-intro">Fine-tuning QLoRA de Qwen2.5-3B pour extraire du JSON structuré depuis des tickets support.</p>
+    <div class="card">
+      <p>Comparatif chiffré avant/après fine-tuning, rapport de coût de calcul, et déploiement concret via Ollama et vLLM. L'objectif : un petit modèle spécialisé qui remplace un gros modèle générique, moins cher et plus fiable sur une tâche précise.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">QLoRA</span>
+        <span class="tag">Qwen2.5-3B</span>
+        <span class="tag">vLLM</span>
+        <span class="tag">Ollama</span>
+      </div>
+      <div class="card-foot">
+        <a href="https://github.com/bsaliou/qlora-fine-tuning-json-extraction" target="_blank" rel="noopener">github.com/bsaliou/qlora-fine-tuning-json-extraction</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="stage-node"></div>
+    <p class="stage-tag">03 · orchestrate</p>
+    <h2>agent-sql-tool-use</h2>
+    <p class="section-intro">Agent LLM multi-outils (SQL, calculatrice, recherche web), boucle d'orchestration comparée à LangGraph.</p>
+    <div class="card">
+      <p>Implémentation "from scratch" d'une boucle d'agent, mise en regard directe avec une implémentation LangGraph — avec mémoire court/long terme, retry et fallback en cas d'échec d'un outil. Une vraie démonstration de compréhension du fonctionnement interne des frameworks, pas juste de leur usage.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">LangGraph</span>
+        <span class="tag">Tool Use</span>
+        <span class="tag">SQL Agent</span>
+      </div>
+      <div class="card-foot">
+        <a href="https://github.com/bsaliou/agent-sql-tool-use" target="_blank" rel="noopener">github.com/bsaliou/agent-sql-tool-use</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="stage-node"></div>
+    <p class="stage-tag">04 · evaluate</p>
+    <h2>llm-eval-observability-powerbi</h2>
+    <p class="section-intro">Framework d'évaluation LLM (LLM-as-judge + métriques automatiques) avec traçage Langfuse et dashboard Power BI.</p>
+    <div class="card">
+      <p>Compare prompts et modèles sur des critères objectifs, trace chaque appel via Langfuse, et remonte coût, latence et taux d'erreur dans un dashboard Power BI construit à partir des logs de requêtes réels. La partie la plus rare du métier : savoir mesurer, pas seulement construire.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">LLM-as-judge</span>
+        <span class="tag">Langfuse</span>
+        <span class="tag">Power BI</span>
+      </div>
+      <div class="card-foot">
+        <a href="https://github.com/bsaliou/llm-eval-observability-powerbi" target="_blank" rel="noopener">github.com/bsaliou/llm-eval-observability-powerbi</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="stage-node"></div>
+    <p class="stage-tag">05 · apply</p>
+    <h2>ChemPrice</h2>
+    <p class="section-intro">Le projet le plus utilisé de mon profil — 17 stars, 5 forks : agrégation de prix fournisseurs pour la recherche en chimie.</p>
+    <div class="card">
+      <p>Simplifie la collecte de données de prix depuis plus de 100 fournisseurs en intégrant ChemSpace, Mcule et Molport. Garantit un format uniforme des données de prix pour comparer facilement les fournisseurs. La preuve qu'un outil bien pensé, même en dehors du cœur "LLM", trouve son public.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Data Aggregation</span>
+        <span class="tag">API Integration</span>
+      </div>
+      <div class="card-foot">
+        <a href="https://github.com/bsaliou/ChemPrice" target="_blank" rel="noopener">github.com/bsaliou/ChemPrice</a>
+        <span class="stars">★ 17 · ⑂ 5</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="stage-node"></div>
+    <p class="stage-tag">stack</p>
+    <h2>Compétences</h2>
+    <div class="skills-grid">
+      <span class="skill">Python</span>
+      <span class="skill">RAG</span>
+      <span class="skill">LangGraph</span>
+      <span class="skill">QLoRA / fine-tuning</span>
+      <span class="skill">vLLM · Ollama</span>
+      <span class="skill">Langfuse</span>
+      <span class="skill">Power BI</span>
+      <span class="skill">SQL</span>
+      <span class="skill">Évaluation LLM</span>
+      <span class="skill">Agents / Tool use</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="stage-node"></div>
+    <p class="stage-tag">06 · connect</p>
+    <h2>Contact</h2>
+    <div class="contact-card">
+      <p class="lede" style="font-size:15px; margin-bottom:0;">
+        Ouvert aux échanges sur des projets LLM, missions freelance ou opportunités.
+      </p>
+      <div class="contact-links">
+        <div class="contact-row">
+          <span class="label">Email</span>
+          <a href="mailto:ton.email@exemple.com" class="placeholder">ton.email@exemple.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">GitHub</span>
+          <a href="https://github.com/bsaliou" target="_blank" rel="noopener">github.com/bsaliou</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">LinkedIn</span>
+          <a href="#" class="placeholder">linkedin.com/in/ton-profil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    bsaliou — 2026
+  </footer>
+</div>
+
+</body>
+</html>
